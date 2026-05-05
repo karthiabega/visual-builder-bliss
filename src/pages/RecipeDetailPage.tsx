@@ -203,14 +203,13 @@ const RecipeDetailPage = () => {
         <div className="absolute top-4 right-4 z-10">
           <FavoriteHeartButton recipeId={recipe.recipe_id.toString()} />
         </div>
-        {/* Recipe name overlaid on hero */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
           className="absolute bottom-4 left-4 right-4 z-10"
         >
-          <h1 className="text-2xl md:text-4xl font-black text-white leading-tight drop-shadow-lg">{recipe.name}</h1>
+          <h1 className="text-2xl md:text-3xl font-black text-white leading-tight drop-shadow-xl uppercase tracking-tightest">{recipe.name}</h1>
         </motion.div>
       </div>
 
@@ -222,22 +221,20 @@ const RecipeDetailPage = () => {
           className="mb-6"
         >
           <div className="flex items-start justify-between mb-2">
-            {/* Title now in hero overlay, showing category badges here */}
             <div className="flex flex-wrap gap-2">
               {recipe.categories && recipe.categories.length > 0 ? (
                 recipe.categories.map((category, index) => (
-                  <Badge key={index} variant="secondary">{category}</Badge>
+                  <Badge key={index} variant="secondary" className="bg-primary/10 border border-primary/20 text-primary font-black uppercase tracking-widest text-[9px]">{category}</Badge>
                 ))
               ) : (
-                <Badge variant="secondary">Uncategorized</Badge>
+                <Badge variant="secondary" className="bg-foreground/5 border border-foreground/10 text-foreground/40 font-black uppercase tracking-widest text-[9px]">Uncategorized</Badge>
               )}
             </div>
           </div>
 
-          {/* Recipe Owner */}
           <div className="mb-3">
-            <p className="text-sm text-muted-foreground">
-              Created by <span className="font-medium text-foreground">{recipe.owner_name}</span>
+            <p className="text-xs text-muted-foreground font-black uppercase tracking-widest italic leading-none">
+              Archived by <span className="text-foreground opacity-100 underline decoration-primary/30 decoration-2 underline-offset-2">{recipe.owner_name}</span>
             </p>
           </div>
 
@@ -262,30 +259,30 @@ const RecipeDetailPage = () => {
               <Clock className="w-4 h-4" />
               {recipe.cook_time} min
             </div>
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
               <div className="flex items-center gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => adjustServings(currentServings - 1)}
-                  disabled={currentServings <= 1}
-                  className="h-6 w-6 p-0"
-                >
-                  <Minus className="w-3 h-3" />
-                </Button>
-                <span className="min-w-[60px] text-center">{currentServings} servings</span>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => adjustServings(currentServings + 1)}
-                  disabled={currentServings >= 100}
-                  className="h-6 w-6 p-0"
-                >
-                  <Plus className="w-3 h-3" />
-                </Button>
+                <Users className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => adjustServings(currentServings - 1)}
+                    disabled={currentServings <= 1}
+                    className="h-7 w-7 p-0 rounded-full border-glass-border hover:bg-primary hover:text-primary-foreground transition-all"
+                  >
+                    <Minus className="w-3 h-3" strokeWidth={3} />
+                  </Button>
+                  <span className="min-w-[40px] text-center text-sm font-black text-foreground">{currentServings}</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => adjustServings(currentServings + 1)}
+                    disabled={currentServings >= 100}
+                    className="h-7 w-7 p-0 rounded-full border-glass-border hover:bg-primary hover:text-primary-foreground transition-all"
+                  >
+                    <Plus className="w-3 h-3" strokeWidth={3} />
+                  </Button>
+                </div>
               </div>
-            </div>
             <button
               onClick={handleShare}
               className="p-1 rounded hover:bg-accent transition flex items-center gap-1"
@@ -298,13 +295,19 @@ const RecipeDetailPage = () => {
           </div>
         </motion.div>
 
-        <div className="bg-black/40 backdrop-blur-md border border-white/5 rounded-lg p-4 mb-6 shadow-card">
-          <div className="flex items-center gap-2 text-card-foreground">
-            <span className="font-semibold">Nutrition</span>
-            <span>-</span>
-            <span className="text-muted-foreground">Calories</span>
-            <span>-</span>
-            <span className="font-semibold">{recipe.calories}</span>
+        <div className="bg-glass border border-glass-border rounded-xl p-6 mb-8 shadow-3xl backdrop-blur-3xl flex items-center gap-6">
+          <div className="flex items-center gap-3">
+             <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                <ChefHat className="w-5 h-5 text-primary" />
+             </div>
+             <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1 leading-none">Culinary DNA</p>
+                <div className="flex items-center gap-4">
+                   <span className="text-xl font-black text-foreground uppercase tracking-tightest leading-none">{recipe.calories} <span className="text-[10px] opacity-40 font-black tracking-widest italic uppercase ml-1">KCal</span></span>
+                   <div className="h-4 w-[1px] bg-foreground/10" />
+                   <span className="text-xl font-black text-foreground uppercase tracking-tightest leading-none">{recipe.cuisine || "Heritage"} <span className="text-[10px] opacity-40 font-black tracking-widest italic uppercase ml-1">Context</span></span>
+                </div>
+             </div>
           </div>
         </div>
 
@@ -378,7 +381,7 @@ const RecipeDetailPage = () => {
         )}
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Ingredients</h2>
+          <h2 className="text-sm font-black uppercase tracking-widest-editorial text-foreground mb-4">Ingredients</h2>
           <div className="bg-black/40 backdrop-blur-md border border-white/5 rounded-lg shadow-card overflow-hidden">
             <table className="w-full">
               <thead>
@@ -399,8 +402,8 @@ const RecipeDetailPage = () => {
                       transition={{ duration: 0.4, delay: index * 0.05 }}
                       className="border-b border-white/5 bg-transparent"
                     >
-                      <td className="p-3 text-card-foreground capitalize">{ingredient.name}</td>
-                      <td className="p-3 text-right text-card-foreground">
+                      <td className="p-3 text-[12px] md:text-sm font-bold text-card-foreground capitalize">{ingredient.name}</td>
+                      <td className="p-3 text-right text-[12px] md:text-sm font-black tracking-tightest text-card-foreground">
                         {!ingredient.quantity || ingredient.quantity === "0" ?
                           ingredient.unit :
                           formatQuantity(scaledQuantity, ingredient.unit)
@@ -415,7 +418,7 @@ const RecipeDetailPage = () => {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">Instructions</h2>
+          <h2 className="text-sm font-black uppercase tracking-widest-editorial text-foreground mb-4">Instructions</h2>
           <div className="space-y-4">
             {recipe.instructions && recipe.instructions.map((instruction, index) => (
               <motion.div
@@ -426,10 +429,10 @@ const RecipeDetailPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.07 }}
                 className="flex gap-4 p-4 bg-black/40 backdrop-blur-md border border-white/5 rounded-lg shadow-card"
               >
-                <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0">
+                <div className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-[10px] font-black flex-shrink-0">
                   {typeof instruction === 'object' ? instruction.step : index + 1}
                 </div>
-                <p className="text-card-foreground">
+                <p className="text-[12px] md:text-sm font-bold leading-relaxed text-card-foreground">
                   {typeof instruction === 'object' ? instruction.description : instruction}
                 </p>
               </motion.div>
@@ -438,10 +441,10 @@ const RecipeDetailPage = () => {
         </section>
 
         {/* CTA Buttons — clearly separated from instructions */}
-        <div className="my-8 p-5 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10">
-          <p className="text-white/50 text-xs uppercase tracking-widest mb-4 font-bold">Ready to cook?</p>
+        <div className="my-8 p-5 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl">
+          <p className="text-white/50 text-[9px] uppercase tracking-widest-editorial mb-4 font-black">Ready to cook?</p>
           <div className="flex gap-3">
-            <Button className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl shadow-[0_4px_24px_rgba(242,101,34,0.35)] hover:shadow-[0_4px_32px_rgba(242,101,34,0.5)] transition-all">
+            <Button className="flex-1 bg-primary hover:bg-primary/90 text-white font-black text-[10px] uppercase tracking-widest-editorial py-6 rounded-xl shadow-[0_4px_24px_rgba(242,101,34,0.35)] hover:shadow-[0_4px_32px_rgba(242,101,34,0.5)] transition-all">
               🍳 Start Cooking
             </Button>
             <Dialog open={isReportDialogOpen} onOpenChange={setIsReportDialogOpen}>

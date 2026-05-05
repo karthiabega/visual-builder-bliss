@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Outfit', 'sans-serif'],
+				sans: ['Bricolage Grotesque', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -72,7 +72,10 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				'glass': 'var(--glass-bg)',
+				'glass-active': 'var(--glass-active-bg)',
+				'glass-border': 'var(--glass-border)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

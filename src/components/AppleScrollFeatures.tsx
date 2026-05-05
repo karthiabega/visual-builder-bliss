@@ -47,9 +47,9 @@ export default function AppleScrollFeatures() {
         className="text-center mb-12 px-2"
       >
         <p className="text-primary text-sm font-bold uppercase tracking-[0.3em] mb-3">Why Us</p>
-        <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">
+        <h2 className="text-4xl md:text-6xl font-black text-foreground uppercase tracking-tighter leading-none">
           Made for<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
             Real Cooks
           </span>
         </h2>
@@ -69,20 +69,20 @@ export default function AppleScrollFeatures() {
               ease: [0.25, 0.46, 0.45, 0.94], // Apple's signature easing
             }}
             whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
-            className={`relative overflow-hidden p-6 md:p-8 rounded-3xl bg-gradient-to-br ${color} border border-white/10 backdrop-blur-md cursor-default`}
+            className={`relative overflow-hidden p-6 md:p-8 rounded-[2.5rem] bg-glass border border-glass-border shadow-xl backdrop-blur-3xl cursor-default group`}
           >
             {/* Subtle glow orb */}
-            <div className={`absolute -top-8 -right-8 w-32 h-32 rounded-full bg-gradient-to-br ${color} blur-2xl opacity-60`} />
+            <div className={`absolute -top-12 -right-12 w-48 h-48 rounded-full bg-primary/10 blur-3xl opacity-60 group-hover:bg-primary/20 transition-colors`} />
 
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2.5 rounded-2xl bg-white/5 border border-white/10">
-                  <Icon className={`w-5 h-5 ${iconColor}`} />
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20">
+                  <Icon className={`w-6 h-6 ${iconColor}`} strokeWidth={2.5} />
                 </div>
-                <span className={`text-xs font-bold uppercase tracking-[0.25em] ${iconColor}`}>{tag}</span>
+                <span className={`text-[10px] font-black uppercase tracking-[0.4em] ${iconColor}`}>{tag}</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-black text-white mb-3 leading-tight">{title}</h3>
-              <p className="text-white/60 font-light leading-relaxed">{desc}</p>
+              <h3 className="text-2xl md:text-4xl font-black text-foreground mb-4 leading-tight uppercase tracking-tighter">{title}</h3>
+              <p className="text-foreground/70 font-medium leading-relaxed italic">{desc}</p>
             </div>
           </motion.div>
         ))}

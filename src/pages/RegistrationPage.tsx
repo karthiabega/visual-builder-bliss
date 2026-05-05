@@ -85,30 +85,29 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-20 flex flex-col">
-      <header className="bg-card shadow-card border-b border-border w-full">
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-3 mb-4">
-            <Link to="/login">
-              <Button variant="ghost" size="sm" className="p-2">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-semibold text-foreground">Register</h1>
-            <div className="flex ml-auto gap-2">
-              <InfoIconButton />
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-transparent pb-20 flex flex-col pt-12 md:pt-20">
+      <div className="fixed top-6 left-6 z-50">
+        <Link to="/login">
+            <Button variant="ghost" size="sm" className="p-2 text-foreground/40 hover:text-primary transition-colors">
+              <ArrowLeft className="w-6 h-6" />
+            </Button>
+        </Link>
+      </div>
       
-      <main className="flex flex-1 flex-col items-center justify-center w-full px-4 py-8">
-        <div className="bg-card rounded-xl shadow-lg border border-border p-6 sm:p-8 w-full max-w-sm">
-          <h1 className="text-3xl font-bold text-center mb-8 text-foreground">Create Account</h1>
+      <main className="flex flex-1 flex-col items-center justify-center w-full px-4 py-12 relative z-10">
+        <div className="glass-card-premium rounded-[3rem] p-10 md:p-16 w-full max-w-xl shadow-3xl">
+           <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                 <div className="h-[1px] w-6 bg-primary/40"></div>
+                 <span className="text-primary text-[9px] font-black uppercase tracking-widest-editorial">Establish Dossier</span>
+                 <div className="h-[1px] w-6 bg-primary/40"></div>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-black text-foreground uppercase tracking-tightest leading-none">REGISTER</h1>
+          </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Full Name</Label>
               <Input
                 id="name"
                 type="text"
@@ -121,7 +120,7 @@ export default function RegistrationPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Label htmlFor="phoneNumber" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Phone Number</Label>
               <div className="flex gap-2">
                 <CountryCodeSelector
                   value={countryCode}
@@ -139,13 +138,13 @@ export default function RegistrationPage() {
                   className="flex-1"
                 />
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-[9px] font-black uppercase tracking-widest-editorial text-foreground font-black opacity-60 italic">
                 Enter your phone number without the country code
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -158,7 +157,7 @@ export default function RegistrationPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Confirm Password</Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -171,17 +170,17 @@ export default function RegistrationPage() {
             </div>
 
             <div className="space-y-3">
-              <Label>Food Interests (Optional)</Label>
-              <p className="text-sm text-muted-foreground">Select your food preferences:</p>
+              <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60">Food Interests (Optional)</Label>
+              <p className="text-[9px] font-black uppercase tracking-widest-editorial text-foreground font-black opacity-60 italic leading-none">Select curated preferences:</p>
               <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                 {AVAILABLE_INTERESTS.map((interest) => (
                   <Badge
                     key={interest}
                     variant={interests.includes(interest) ? "default" : "secondary"}
-                    className={`cursor-pointer transition-colors ${
+                    className={`cursor-pointer transition-all duration-300 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest-editorial ${
                       interests.includes(interest)
-                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                        : "hover:bg-secondary/80"
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-105"
+                        : "bg-glass border-glass-border text-foreground font-bold hover:border-primary/40 hover:text-primary"
                     }`}
                     onClick={() => toggleInterest(interest)}
                   >
@@ -190,7 +189,7 @@ export default function RegistrationPage() {
                 ))}
               </div>
               {interests.length > 0 && (
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary italic">
                   Selected: {interests.join(", ")}
                 </p>
               )}
@@ -208,22 +207,12 @@ export default function RegistrationPage() {
                 <div className="grid gap-1.5 leading-none">
                   <label
                     htmlFor="terms-privacy"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-[9px] font-black uppercase tracking-widest-editorial text-foreground font-black opacity-60 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 leading-relaxed"
                   >
-                    I agree to the{" "}
-                    <Link
-                      to="/terms"
-                      className="text-primary hover:underline"
-                    >
-                      Terms and Conditions
-                    </Link>
+                    I acknowledge and agree to the{" "}
+                    <Link to="/terms" className="text-primary hover:underline">Terms & Conditions</Link>
                     {" "}and{" "}
-                    <Link
-                      to="/privacy"
-                      className="text-primary hover:underline"
-                    >
-                      Privacy Policy
-                    </Link>
+                    <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
                   </label>
                 </div>
               </div>
@@ -231,23 +220,23 @@ export default function RegistrationPage() {
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full h-12 text-[9px] font-black uppercase tracking-widest-editorial shadow-2xl"
               disabled={isLoading || !acceptedTermsAndPrivacy}
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating Account...
+                  <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+                  Establishing Dossier...
                 </>
               ) : (
-                "Create Account"
+                "Initiate Connection"
               )}
             </Button>
           </form>
           
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link to="/login" className="text-primary font-medium hover:underline">
+          <div className="mt-8 text-center text-[9px] font-black text-foreground uppercase tracking-widest-editorial leading-relaxed opacity-40">
+            Already archived?{" "}
+            <Link to="/login" className="text-primary hover:underline font-black">
               Sign in
             </Link>
           </div>

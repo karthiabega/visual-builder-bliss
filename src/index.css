@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    --background: 220 20% 4%;
-    --foreground: 0 0% 98%;
-    --card: 220 20% 6%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 20% 6%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 160 30% 40%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 160 10% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --accent: 12 87% 96%;
-    --accent-foreground: 12 87% 40%;
+    --background: 220 20% 3%;
+    --foreground: 220 10% 98%;
+    --card: 220 25% 6%;
+    --card-foreground: 220 10% 98%;
+    --popover: 220 25% 6%;
+    --popover-foreground: 220 10% 98%;
+    --primary: 160 55% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 160 15% 10%;
+    --secondary-foreground: 160 30% 95%;
+    --muted: 220 15% 8%;
+    --muted-foreground: 220 10% 65%;
+    --accent: 38 75% 55%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 160 30% 40%;
+    --border: 220 20% 12%;
+    --input: 220 20% 12%;
+    --ring: 160 55% 45%;
     --radius: 1.25rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -34,6 +34,19 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Glassmorphism 3.0 — Layered Refraction */
+    --glass-bg: rgba(10, 10, 20, 0.72); 
+    --glass-border: rgba(255, 255, 255, 0.07);
+    --glass-text-muted: hsl(220, 10%, 65%);
+    --glass-text: hsl(0, 0%, 98%);
+    --glass-active-color: hsla(160, 55%, 45%, 1);
+    --glass-active-bg: rgba(255, 255, 255, 0.05);
+    --glass-shadow: 
+      0 30px 60px rgba(0, 0, 0, 0.70), 
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    --glass-inner-glow: 0 1px 0 rgba(255, 255, 255, 0.1) inset;
+    --glass-header-bg: rgba(0, 0, 0, 0.75);
   }
 
   .dark {
@@ -43,29 +56,22 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 6%;
     --popover-foreground: 0 0% 98%;
-    --primary: 160 30% 40%;
+    --primary: 160 35% 45%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 10% 12%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 10% 12%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 240 10% 12%;
+    --muted-foreground: 240 5% 60%;
+    --accent: 160 35% 45%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 35%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 10% 16%;
-    --input: 240 10% 16%;
-    --ring: 160 30% 40%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-    --shadow-card: 0 8px 30px rgba(0,0,0,0.4);
-    --shadow-card-hover: 0 20px 40px rgba(0,0,0,0.6);
+    --border: 240 10% 15%;
+    --input: 240 10% 15%;
+    --ring: 160 35% 45%;
+    --shadow-card: 0 12px 30px rgba(0,0,0,0.5);
+    --shadow-card-hover: 0 30px 60px rgba(0,0,0,0.8);
+    --hero-overlay: linear-gradient(to bottom, rgba(0,0,0,0.70), hsla(var(--background), 0.3), hsla(var(--background), 1));
   }
 }
 
@@ -73,10 +79,62 @@
   * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Outfit', sans-serif;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+}
+
+/* ====================================================
+   LIGHT THEME TOKEN OVERRIDES
+   Applied when <html> has class="light-theme"
+   ==================================================== */
+.light-theme {
+  /* Museum Linen Palette — Hardened for absolute visibility */
+  --background: 40 45% 98%;             /* Premium Linen White */
+  --foreground: 220 50% 2%;            /* Absolute Charcoal (Full Contrast) */
+  --muted-foreground: 220 30% 8%;      /* Maximum contrast for editorial pacing */
+  
+  --primary: 160 85% 10%;               /* Deep Forest Obsidian (Master Class) */
+  --primary-foreground: 40 45% 98%;
+  --secondary: 40 35% 92%;              /* Polished Ivory (Slightly darker for contrast) */
+  --secondary-foreground: 160 85% 8%;
+  --card: 40 45% 98%;
+  --card-foreground: 220 50% 2%;
+  --muted: 40 30% 88%;
+  --accent: 38 75% 30%;                 /* Weighted Bronze (Cinematic) */
+  --accent-foreground: 40 45% 98%;
+  --border: 40 30% 82%;
+  --input: 40 30% 82%;
+  --ring: 160 85% 12%;
+
+  /* Glassmorphism 3.0 — High-Contrast Refraction */
+  --glass-bg: rgba(255, 255, 255, 0.96); /* High-fidelity white opacity */
+  --glass-border: rgba(0, 0, 0, 0.22);    /* Weighted object borders */
+  --glass-text: hsl(220, 50%, 2%);
+  --glass-text-muted: hsl(220, 30%, 8%);
+  --glass-active-color: hsl(160, 85% 5%);
+  --glass-active-bg: rgba(0, 0, 0, 0.12);
+  --glass-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.12), 
+    0 8px 16px rgba(0, 0, 0, 0.06),
+    0 1px 0 rgba(255, 255, 255, 1) inset;
+  --glass-inner-glow: 0 1px 0 rgba(255, 255, 255, 1) inset;
+  --glass-header-bg: rgba(255, 255, 255, 0.95);
+  --hero-overlay: linear-gradient(to bottom, transparent, hsla(var(--background), 0.5) 50%, hsla(var(--background), 1));
+}
+
+@layer utilities {
+  .tracking-tightest {
+    letter-spacing: -0.05em;
+  }
+  .tracking-widest-editorial {
+    letter-spacing: 0.25em;
+  }
+  .tracking-extrawide {
+    letter-spacing: 0.5em;
   }
 }
 
@@ -118,6 +176,16 @@
   will-change: transform;
 }
 
+/* Light theme — dedicated bokeh food background */
+.light-theme .app-bg-layer {
+  background-image: url('/light_food_bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: ken-burns 80s ease-in-out infinite;
+  filter: none;
+}
+
 .app-vignette-layer {
   position: fixed;
   inset: 0;
@@ -126,10 +194,19 @@
   pointer-events: none;
 }
 
+/* Light theme vignette — very soft edge fade, keeps SVG visible */
+.light-theme .app-vignette-layer {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(180, 160, 140, 0.15) 100%);
+}
+
 .smoke-layer {
   background-image: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.07) 0%, transparent 55%);
   animation: smoke-rise 30s ease-in-out infinite;
 }
+
+.light-theme .smoke-layer { opacity: 0; }
+.light-theme .noise-overlay { opacity: 0; }
+.light-theme .atmos-mesh { background: none; }
 
 /* Scrollbar hide utility */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -259,14 +336,32 @@
 /* --- AW-WINNING Bento & Refraction --- */
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
   .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.25rem;
   }
+}
+
+.glass-card-premium {
+  @apply bg-glass border border-glass-border backdrop-blur-3xl;
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card-premium::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent 50%, rgba(255,255,255,0.05));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .light-sweep {
@@ -277,21 +372,39 @@
 .light-sweep::after {
   content: "";
   position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 20%;
-  height: 200%;
+  top: -100%;
+  left: -100%;
+  width: 40%;
+  height: 300%;
   background: linear-gradient(
     to right,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.08) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  transform: rotate(30deg);
-  transition: all 0.7s ease;
+  transform: rotate(25deg);
   pointer-events: none;
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .group:hover .light-sweep::after {
-  left: 140%;
+  left: 200%;
+}
+
+.hover-depth {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+
+.group:hover .hover-depth {
+  transform: translateY(-12px) scale(1.02) translateZ(0);
+  box-shadow: 
+    0 40px 90px -15px rgba(0, 0, 0, 0.5),
+    0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.light-theme .group:hover .hover-depth {
+  box-shadow: 
+    0 40px 90px -15px rgba(0, 0, 0, 0.15),
+    0 20px 40px -10px rgba(0, 0, 0, 0.1);
 }

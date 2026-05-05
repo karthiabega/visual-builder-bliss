@@ -14,7 +14,7 @@ const MainHeader = ({ children }: MainHeaderProps) => {
   };
 
   return (
-    <div className="sticky top-0 w-full z-50 bg-black/60 backdrop-blur-3xl border-b border-white/5">
+    <div className="sticky top-0 w-full z-50 bg-glass backdrop-blur-3xl border-b border-glass-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-3 md:py-4">
         {/* Brand Row */}
         <div className="flex items-center justify-between">
@@ -29,8 +29,8 @@ const MainHeader = ({ children }: MainHeaderProps) => {
             >
               <img src="/beinghomelogo.jpeg" alt="BeingHomeFoods" className="w-10 h-10 rounded-full object-cover border-2 border-primary/50" />
               <div className="flex flex-col">
-                <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary/80 leading-none">Being Home</span>
-                <span className="text-xs md:text-sm font-black uppercase tracking-widest text-white leading-none mt-1">Foods</span>
+                <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-primary leading-none">Being Home</span>
+                <span className="text-xs md:text-sm font-black uppercase tracking-widest text-foreground leading-none mt-1">Foods</span>
               </div>
             </Link>
           </Magnetic>
@@ -40,10 +40,10 @@ const MainHeader = ({ children }: MainHeaderProps) => {
             <Magnetic strength={0.3}>
               <button
                 onClick={openMenu}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:border-primary/50 transition-all group"
+                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-glass border border-glass-border hover:border-primary transition-all group shadow-sm"
               >
-                <Menu className="w-5 h-5 text-white/50 group-hover:text-primary transition-colors" />
-                <span className="text-[10px] font-black uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">Menu</span>
+                <Menu className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-foreground/40 group-hover:text-foreground transition-colors">Menu</span>
               </button>
             </Magnetic>
           </div>

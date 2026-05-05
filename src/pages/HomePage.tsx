@@ -188,13 +188,13 @@ const HomePage = () => {
           className="relative z-10 space-y-6 sm:space-y-10 flex flex-col items-center max-w-5xl w-full"
         >
           <div className="flex items-center justify-center gap-6 mb-2">
-            <div className="h-[1px] w-16 bg-gradient-to-r from-transparent to-primary"></div>
-            <span className="text-primary/90 tracking-[0.4em] text-[10px] md:text-xs font-black uppercase">Standard Premium</span>
-            <div className="h-[1px] w-16 bg-gradient-to-l from-transparent to-primary"></div>
+            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-primary"></div>
+            <span className="text-primary text-[9px] font-black uppercase tracking-widest-editorial">Standard Premium</span>
+            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary"></div>
           </div>
           
-          <div className="space-y-2">
-            <h1 className="text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] font-black text-white uppercase tracking-tighter leading-[0.8] drop-shadow-2xl">
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-foreground uppercase tracking-tightest leading-[0.85] mb-8">
               <span className="block overflow-hidden">
                 <motion.span 
                   initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -204,36 +204,36 @@ const HomePage = () => {
               <span className="block overflow-hidden">
                 <motion.span 
                   initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                  className="block text-transparent bg-clip-text bg-gradient-to-b from-primary via-primary/80 to-primary/40"
+                  className="block text-primary italic"
                 >EXCELLENCE</motion.span>
               </span>
             </h1>
           </div>
 
-          <p className="hidden sm:block text-white/50 text-base md:text-xl font-medium tracking-wide max-w-xl px-4 leading-relaxed">
+          <p className="hidden sm:block text-foreground font-black text-[12px] md:text-sm tracking-widest-editorial max-w-xl px-4 leading-relaxed italic opacity-85">
             Pushing boundaries and redefining flavor. <br/> Discover food that challenges the status quo.
           </p>
 
           <div className="w-full max-w-xl mt-6 md:mt-12 px-6">
-            <div className="flex items-center gap-0 rounded-full p-1.5 backdrop-blur-3xl bg-white/5 border border-white/10 shadow-2xl">
+            <div className="flex items-center gap-0 rounded-full p-1.5 backdrop-blur-3xl bg-glass border border-glass-border shadow-2xl">
               <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 w-5 h-5" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/40 w-5 h-5" />
                 <input
-                  type="text" placeholder="Search any recipe..." value={searchQuery}
+                  placeholder="Search Any Curated Recipe..." value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={(e) => { if (e.key === 'Enter') handleSearch(); }}
-                  className="w-full h-10 sm:h-12 pl-12 pr-4 bg-transparent text-white placeholder:text-white/35 text-sm sm:text-base focus:outline-none"
+                  className="w-full h-10 pl-11 pr-4 bg-transparent text-foreground placeholder:text-foreground/25 text-[10px] sm:text-[11px] font-black uppercase tracking-widest-editorial focus:outline-none"
                 />
               </div>
               <Magnetic strength={0.3}>
-                <button onClick={handleSearch} className="h-10 sm:h-12 px-5 sm:px-7 rounded-full bg-primary text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-primary/20">Search</button>
+                <button onClick={handleSearch} className="h-10 px-6 rounded-full bg-primary text-primary-foreground font-black text-[10px] uppercase tracking-widest-editorial shadow-lg shadow-primary/20">Search</button>
               </Magnetic>
             </div>
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }} className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 hidden sm:flex">
-          <span className="text-white/30 text-[10px] font-black uppercase tracking-[0.4em]">Scroll to discover</span>
+          <span className="text-white/30 text-[9px] font-black uppercase tracking-widest-editorial">Scroll to discover</span>
           <div className="w-[1px] h-12 bg-gradient-to-b from-primary/60 to-transparent animate-bounce-subtle" />
         </motion.div>
       </div>
@@ -243,11 +243,11 @@ const HomePage = () => {
           <section className="mb-8 md:mb-16">
             <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} className="flex items-end justify-between mb-10 px-1">
               <div>
-                <p className="text-primary text-[10px] font-black uppercase tracking-[0.4em] mb-2 sm:mb-3">Hand-Picked</p>
-                <CinematicText text="Popular Recipes" className="text-2xl sm:text-4xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none" />
+                <p className="text-primary text-[9px] font-black uppercase tracking-widest-editorial mb-2 sm:mb-3">Hand-Picked</p>
+                <CinematicText text="Popular Recipes" className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground uppercase tracking-tightest leading-none" />
               </div>
               <Link to="/recipes">
-                <Button variant="ghost" size="lg" className="text-primary hover:text-primary/80 uppercase tracking-widest font-black text-[10px] border border-primary/30 hover:border-primary rounded-full px-5 hidden sm:flex">All Recipes →</Button>
+                <Button variant="ghost" size="lg" className="text-primary hover:text-primary/80 uppercase tracking-widest-editorial font-black text-[10px] border border-primary/30 hover:border-primary rounded-full px-5 hidden sm:flex">All Recipes →</Button>
               </Link>
             </motion.div>
 
@@ -308,18 +308,6 @@ const HomePage = () => {
         </main>
       </div>
 
-      <div className="fixed bottom-28 right-4 z-40 flex flex-col gap-3">
-        <Link to="/create-recipe">
-          <Button className={`bg-white/10 text-white border border-white/20 hover:bg-white/20 rounded-full transition-all ${isExpanded ? 'px-4 min-w-[160px]' : 'w-14 h-14 p-0'}`}>
-            <Plus className="w-5 h-5 flex-shrink-0" />
-            {isExpanded && <span className="ml-2 whitespace-nowrap text-xs font-black uppercase tracking-widest">Create Recipe</span>}
-          </Button>
-        </Link>
-        <Button onClick={handleWhatToCook} className={`bg-primary text-white hover:bg-primary/90 shadow-xl shadow-primary/20 rounded-full transition-all ${isExpanded ? 'px-4 min-w-[160px]' : 'w-14 h-14 p-0'}`}>
-          <ChefHat className="w-5 h-5 flex-shrink-0" />
-          {isExpanded && <span className="ml-2 whitespace-nowrap text-xs font-black uppercase tracking-widest">What to Cook</span>}
-        </Button>
-      </div>
 
       <RandomRecipeModal
         isOpen={isRandomModalOpen} onClose={handleCloseModal}

@@ -94,28 +94,28 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pb-24 lg:pb-20 flex flex-col" style={{ position: "relative" }}>
-      <header className="bg-card shadow-card border-b border-border w-full">
-        <div className="px-4 py-4">
-          <div className="flex items-center gap-3 mb-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm" className="p-2">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-semibold text-foreground">Login</h1>
-            <div className="flex ml-auto gap-2">
-              <InfoIconButton />
-            </div>
+    <div className="min-h-screen bg-transparent pb-12 flex flex-col pt-12 md:pt-20">
+      <div className="fixed top-6 left-6 z-50">
+        <Link to="/">
+            <Button variant="ghost" size="sm" className="p-2 text-foreground/40 hover:text-primary transition-colors">
+              <ArrowLeft className="w-6 h-6" />
+            </Button>
+        </Link>
+      </div>
+      <main className="flex flex-1 flex-col items-center justify-center w-full px-4 py-12 relative z-10">
+        <div className="glass-card-premium rounded-[3rem] p-10 md:p-16 w-full max-w-lg shadow-3xl">
+          <div className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                 <div className="h-[1px] w-6 bg-primary/40"></div>
+                 <span className="text-primary text-[9px] font-black uppercase tracking-widest-editorial">Secure Access</span>
+                 <div className="h-[1px] w-6 bg-primary/40"></div>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-black text-foreground uppercase tracking-tightest leading-none">LOGIN</h1>
           </div>
-        </div>
-      </header>
-      <main className="flex flex-1 flex-col items-center justify-center w-full px-4 py-8">
-        <div className="bg-card rounded-xl shadow-lg border border-border p-6 sm:p-8 w-full max-w-sm">
-          <h1 className="text-3xl font-bold text-center mb-8 text-foreground">Login</h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-2">
-              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Label htmlFor="phoneNumber" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Phone Number</Label>
               <div className="flex gap-2">
                 <CountryCodeSelector
                   value={countryCode}
@@ -135,16 +135,16 @@ export default function LoginPage() {
                 />
               </div>
               {phoneError ? (
-                <p className="text-xs text-red-500">{phoneError}</p>
+                <p className="text-[9px] font-black uppercase tracking-widest-editorial text-rose-500 italic">{phoneError}</p>
               ) : (
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[9px] font-black uppercase tracking-widest-editorial text-foreground font-black opacity-60 italic">
                   Enter your 10-digit phone number without the country code
                 </p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Password</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -173,42 +173,37 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="text-right text-sm text-muted-foreground mb-4">
+            <div className="text-right text-[10px] text-muted-foreground mb-4 font-black uppercase tracking-widest-editorial opacity-60">
               <a href="#" className="hover:underline">Forgot password?</a>
             </div>
 
             <Button
               type="submit"
-              className="w-full"
+              className="w-full h-12 text-[9px] font-black uppercase tracking-widest-editorial shadow-2xl"
               disabled={isLoading}
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Logging in...
+                  <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+                  Authenticating...
                 </>
               ) : (
-                "Login"
+                "Initiate Session"
               )}
             </Button>
           </form>
-          <div className="mt-6 text-center text-sm">
-            New user?{" "}
-            <Link to="/register" className="text-primary font-medium hover:underline">
-              Register
+          <div className="mt-8 text-center text-[9px] font-black text-foreground uppercase tracking-widest-editorial leading-relaxed opacity-40">
+            New discovery?{" "}
+            <Link to="/register" className="text-primary hover:underline font-black">
+              Register Dossier
             </Link>
           </div>
           
-          {/* Terms and Privacy Policy Links */}
-          <div className="mt-4 text-center text-xs text-muted-foreground">
-            By logging in, you agree to our{" "}
-            <Link to="/terms" className="text-primary hover:underline">
-              Terms and Conditions
-            </Link>
-            {" "}and{" "}
-            <Link to="/privacy" className="text-primary hover:underline">
-              Privacy Policy
-            </Link>
+          <div className="mt-8 text-center text-[9px] font-black text-foreground font-bold opacity-30 uppercase tracking-widest-editorial leading-relaxed">
+            By proceeding, you acknowledge the <br/>
+            <Link to="/terms" className="text-primary hover:underline">Terms & Conditions</Link>
+            {" "} & {" "}
+            <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
           </div>
         </div>
       </main>

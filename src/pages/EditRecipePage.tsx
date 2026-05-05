@@ -1,21 +1,19 @@
-import { useState, useEffect } from "react";
-import { ArrowLeft, Upload, Youtube, Plus, Minus, Loader2, Save } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, Youtube, Plus, Minus, Loader2, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import MobileHeader from "@/components/MobileHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { RecipeService, type CreateRecipeRequest, type Ingredient, type Instruction, type Recipe } from "@/api/recipeService";
 import { RECIPE_CATEGORIES, DIFFICULTY_LEVELS, CUISINE_TYPES, DIETARY_TYPES, type RecipeCategory, type DifficultyLevel, type CuisineType, type DietaryType } from "@/api/config";
 import { toast } from "sonner";
-import InfoIconButton from "../components/ui/InfoIconButton";
-// Removed legacy logo import
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
 import ImageCropper from "@/components/ImageCropper";
 import EnhancedImageUpload from "@/components/EnhancedImageUpload";
+import { motion } from "framer-motion";
+import MainHeader from "../components/MainHeader";
 
 // Pre-defined options for tags
 const COMMON_TAGS = [
@@ -361,79 +359,44 @@ const EditRecipePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20 pt-14 lg:pt-0" style={{ position: "relative" }}>
-      {/* Unified Mobile Sticky Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-sm">
-        <div className="px-4 py-3">
-          {/* Top row: Logo, Title, and Actions */}
-          <div className="flex items-center justify-between gap-3">
-            {/* Left: Logo and Back Button */}
-            <div className="flex items-center gap-3">
-              <img
-                src="/beinghomelogo.jpeg"
-                alt="Being Home Logo"
-                className="h-10 w-10 object-cover rounded-full border-2 border-primary/50"
-              />
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-2"
-                onClick={() => navigate('/profile')}
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-              <h1 className="text-lg font-semibold text-foreground">Edit Recipe</h1>
-            </div>
-            
-            {/* Right: Info Button */}
-            <InfoIconButton />
-          </div>
+    <div className="min-h-screen bg-transparent pb-32">
+      <MainHeader />
+      
+      {/* Editorial Title Section */}
+      <section className="px-6 md:px-12 pt-16 mb-12">
+        <div className="flex flex-col gap-2">
+           <div className="flex items-center gap-3">
+              <div className="h-[1px] w-6 bg-primary/60"></div>
+              <span className="text-primary text-[9px] font-black uppercase tracking-widest-editorial">Protocol V1.0</span>
+           </div>
+           <div className="overflow-hidden">
+             <motion.h1 
+               initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+               className="text-4xl sm:text-6xl md:text-7xl font-black text-foreground uppercase tracking-tightest leading-[0.85] mb-8"
+             >
+               EDIT <br/> <span className="text-primary italic">ARCHIVE</span>
+             </motion.h1>
+           </div>
         </div>
-      </div>
-
-      {/* Desktop Header */}
-      <header className="hidden lg:block bg-card shadow-card border-b border-border">
-        <div className="px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <img
-              src="/beinghomelogo.jpeg"
-              alt="Being Home Logo"
-              className="h-12 w-12 object-cover rounded-full border-2 border-primary/50"
-            />
-            <InfoIconButton />
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-2"
-              onClick={() => navigate('/profile')}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <h1 className="text-xl font-semibold text-foreground">Edit Recipe</h1>
-          </div>
-        </div>
-      </header>
+      </section>
 
       <main className="px-4 py-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="recipeName" className="text-foreground font-medium">Recipe name *</Label>
+            <Label htmlFor="recipeName" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Recipe name *</Label>
             <Input
               id="recipeName"
               placeholder="Enter recipe name"
               value={formData.name}
               onChange={(e) => updateFormData('name', e.target.value)}
-              className="bg-card border-input"
+              className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
               required
             />
           </div>
 
           {/* Categories Multi-Select */}
           <div className="space-y-3">
-            <Label className="text-foreground font-medium flex items-center gap-2">
+            <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60 flex items-center gap-2">
               Categories *
             </Label>
             
@@ -484,9 +447,9 @@ const EditRecipePage = () => {
 
           {/* Dietary Type */}
           <div className="space-y-2">
-            <Label htmlFor="dietary_type" className="text-foreground font-medium">Dietary Type *</Label>
+            <Label htmlFor="dietary_type" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Dietary Type *</Label>
             <Select value={formData.dietary_type} onValueChange={(value) => updateFormData('dietary_type', value as DietaryType)}>
-              <SelectTrigger className="bg-card border-input">
+              <SelectTrigger className="bg-glass border-glass-border text-foreground font-black backdrop-blur-sm shadow-sm">
                 <SelectValue placeholder="Select dietary type" />
               </SelectTrigger>
               <SelectContent>
@@ -513,7 +476,7 @@ const EditRecipePage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="videoUrl" className="text-foreground font-medium">YouTube video link</Label>
+            <Label htmlFor="videoUrl" className="text-[9px] uppercase tracking-widest-editorial opacity-60">YouTube video link</Label>
             <div className="relative">
               <Youtube className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
@@ -521,14 +484,14 @@ const EditRecipePage = () => {
                 placeholder="https://youtube.com/watch?v=..."
                 value={formData.youtube_url}
                 onChange={(e) => updateFormData('youtube_url', e.target.value)}
-                className="pl-10 bg-card border-input"
+                className="pl-10 bg-glass border-glass-border text-foreground font-bold placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="cookTime" className="text-foreground font-medium">Cook Time (minutes) *</Label>
+              <Label htmlFor="cookTime" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Cook Time (minutes) *</Label>
               <Input
                 id="cookTime"
                 placeholder="25"
@@ -536,12 +499,12 @@ const EditRecipePage = () => {
                 min="1"
                 value={formData.cook_time || ''}
                 onChange={(e) => updateFormData('cook_time', parseInt(e.target.value) || 0)}
-                className="bg-card border-input"
+                className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="servings" className="text-foreground font-medium">Servings *</Label>
+              <Label htmlFor="servings" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Servings *</Label>
               <Input
                 id="servings"
                 placeholder="4"
@@ -549,7 +512,7 @@ const EditRecipePage = () => {
                 min="1"
                 value={formData.servings}
                 onChange={(e) => updateFormData('servings', parseInt(e.target.value) || 1)}
-                className="bg-card border-input"
+                className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
                 required
               />
             </div>
@@ -557,9 +520,9 @@ const EditRecipePage = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="difficulty" className="text-foreground font-medium">Difficulty</Label>
+              <Label htmlFor="difficulty" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Difficulty</Label>
               <Select value={formData.difficulty} onValueChange={(value) => updateFormData('difficulty', value as DifficultyLevel)}>
-                <SelectTrigger className="bg-card border-input">
+                <SelectTrigger className="bg-glass border-glass-border text-foreground font-black backdrop-blur-sm shadow-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -570,9 +533,9 @@ const EditRecipePage = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cuisine" className="text-foreground font-medium">Cuisine</Label>
+              <Label htmlFor="cuisine" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Cuisine</Label>
               <Select value={formData.cuisine} onValueChange={(value) => updateFormData('cuisine', value as CuisineType)}>
-                <SelectTrigger className="bg-card border-input">
+                <SelectTrigger className="bg-glass border-glass-border text-foreground font-black backdrop-blur-sm shadow-sm">
                   <SelectValue placeholder="Select cuisine type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -585,7 +548,7 @@ const EditRecipePage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="calories" className="text-foreground font-medium">Calories</Label>
+            <Label htmlFor="calories" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Calories</Label>
             <Input
               id="calories"
               placeholder="Enter calories (e.g., 300)"
@@ -593,13 +556,13 @@ const EditRecipePage = () => {
               min="0"
               value={formData.calories}
               onChange={(e) => updateFormData('calories', e.target.value === '' ? '' : parseInt(e.target.value) || '')}
-              className="bg-card border-input"
+              className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
             />
           </div>
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-foreground">Ingredients *</h3>
+              <h3 className="text-[9px] font-black uppercase tracking-widest-editorial text-primary">Ingredients *</h3>
               <Button 
                 type="button" 
                 variant="outline" 
@@ -618,19 +581,19 @@ const EditRecipePage = () => {
                     placeholder="Ingredient name"
                     value={ingredient.name}
                     onChange={(e) => updateIngredient(index, 'name', e.target.value)}
-                    className="bg-card border-input flex-1"
+                    className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm flex-1"
                   />
                   <Input
                     placeholder="Qty"
                     value={ingredient.quantity}
                     onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
-                    className="bg-card border-input w-20"
+                    className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm w-24"
                   />
                   <Input
                     placeholder="Unit"
                     value={ingredient.unit}
                     onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
-                    className="bg-card border-input w-20"
+                    className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm w-20"
                   />
                   {ingredients.length > 1 && (
                     <Button
@@ -650,7 +613,7 @@ const EditRecipePage = () => {
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-foreground">Instructions *</h3>
+              <h3 className="text-[9px] font-black uppercase tracking-widest-editorial text-primary">Instructions *</h3>
               <Button 
                 type="button" 
                 variant="outline" 
@@ -673,7 +636,7 @@ const EditRecipePage = () => {
                       placeholder={`Describe step ${instruction.step}...`}
                       value={instruction.description}
                       onChange={(e) => updateInstruction(index, e.target.value)}
-                      className="bg-card border-input flex-1"
+                      className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm flex-1 font-black italic"
                       rows={3}
                     />
                   </div>
@@ -695,7 +658,7 @@ const EditRecipePage = () => {
 
           {/* Tags Section */}
           <div className="space-y-3">
-            <Label className="text-foreground font-medium flex items-center gap-2">
+            <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60 flex items-center gap-2">
               Tags
             </Label>
             
@@ -755,7 +718,7 @@ const EditRecipePage = () => {
                     handleCustomTagAdd();
                   }
                 }}
-                className="bg-card border-input flex-1"
+                className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm flex-1"
               />
               <Button
                 type="button"
@@ -772,7 +735,7 @@ const EditRecipePage = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-[9px] font-black uppercase tracking-widest-editorial shadow-2xl"
           >
             {isSubmitting ? (
               <>
@@ -782,7 +745,7 @@ const EditRecipePage = () => {
             ) : (
               <>
                 <Save className="w-5 h-5 mr-2" />
-                Update Recipe
+                Update Recipe Archive
               </>
             )}
           </Button>

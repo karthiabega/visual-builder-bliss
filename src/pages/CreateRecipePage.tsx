@@ -1,23 +1,21 @@
-import { useState } from "react";
-import { ArrowLeft, Upload, Youtube, Plus, Minus, Loader2, Download } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowLeft, Upload, Youtube, Plus, Minus, Loader2, Download, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import MobileHeader from "@/components/MobileHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { RecipeService, type CreateRecipeRequest, type Ingredient, type Instruction } from "@/api/recipeService";
 import { RECIPE_CATEGORIES, DIFFICULTY_LEVELS, RECIPE_TAGS, CUISINE_TYPES, DIETARY_TYPES, type RecipeCategory, type DifficultyLevel, type RecipeTag, type CuisineType, type DietaryType } from "@/api/config";
 import { toast } from "sonner";
-import InfoIconButton from "../components/ui/InfoIconButton";
-// Removed legacy logo import
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
 import ImageCropper from "@/components/ImageCropper";
 import IngredientInput from "@/components/IngredientInput";
 import EnhancedImageUpload from "@/components/EnhancedImageUpload";
+import { motion } from "framer-motion";
+import MainHeader from "../components/MainHeader";
 
 // Pre-defined options for tags
 const COMMON_TAGS = [
@@ -308,58 +306,50 @@ const CreateRecipePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-transparent pb-28 pt-14 lg:pt-0" style={{ position: "relative" }}>
-      {/* Mobile Sticky Header */}
-      <MobileHeader />
+    <div className="min-h-screen bg-transparent pb-32">
+      <MainHeader />
       
-      <header className="bg-black/50 backdrop-blur-2xl shadow-card border-b border-white/10">
-        <div className="px-4 py-4">
-          {/* Logo and Info Button Row */}
-          <div className="flex items-center justify-between mb-4">
-            {/* Being Home Logo - Extreme Left */}
-            <img 
-              src="/beinghomelogo.jpeg"
-              alt="Being Home Logo" 
-              className="h-10 sm:h-12 w-10 sm:w-12 object-cover rounded-full border-2 border-primary/50"
-            />
-            {/* Info Button - Extreme Right */}
-            <InfoIconButton />
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Link to="/recipes">
-              <Button variant="ghost" size="sm" className="p-2">
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            </Link>
-            <h1 className="text-xl font-semibold text-white">Create Recipe</h1>
-          </div>
+      {/* Editorial Title Section */}
+      <section className="px-6 md:px-12 pt-16 mb-12">
+        <div className="flex flex-col gap-2">
+           <div className="flex items-center gap-3">
+              <div className="h-[1px] w-6 bg-primary/60"></div>
+              <span className="text-primary text-[9px] font-black uppercase tracking-widest-editorial">Recipe Manifest</span>
+           </div>
+           <div className="overflow-hidden">
+             <motion.h1 
+               initial={{ y: "110%" }} animate={{ y: 0 }} transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+               className="text-4xl sm:text-6xl md:text-7xl font-black text-foreground uppercase tracking-tightest leading-[0.85] mb-8"
+             >
+               CREATE <br/> <span className="text-primary italic">MASTERPIECE</span>
+             </motion.h1>
+           </div>
         </div>
-      </header>
+      </section>
 
       <main className="px-4 py-6">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="recipeName" className="text-foreground font-medium">Recipe name *</Label>
+            <Label htmlFor="recipeName" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Recipe name *</Label>
             <Input
               id="recipeName"
               placeholder="Enter recipe name"
               value={formData.name}
               onChange={(e) => updateFormData('name', e.target.value)}
-              className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm"
+              className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
               required
             />
           </div>
 
           {/* Categories Multi-Select */}
           <div className="space-y-3">
-            <Label className="text-foreground font-medium flex items-center gap-2">
+            <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60 flex items-center gap-2">
               Categories *
             </Label>
             
             {/* Selected Categories Display */}
             {formData.categories.length > 0 && (
-              <div className="flex flex-wrap gap-2 p-3 bg-white/5 rounded-md border border-white/10">
+              <div className="flex flex-wrap gap-2 p-3 bg-glass rounded-md border border-glass-border">
                 {formData.categories.map((category, index) => (
                   <Badge
                     key={index}
@@ -404,9 +394,9 @@ const CreateRecipePage = () => {
 
           {/* Dietary Type */}
           <div className="space-y-2">
-            <Label htmlFor="dietary_type" className="text-foreground font-medium">Dietary Type *</Label>
+            <Label htmlFor="dietary_type" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Dietary Type *</Label>
             <Select value={formData.dietary_type} onValueChange={(value) => updateFormData('dietary_type', value as DietaryType)}>
-              <SelectTrigger className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm">
+              <SelectTrigger className="bg-glass border-glass-border text-foreground font-black backdrop-blur-sm shadow-sm ring-offset-background focus:ring-2 focus:ring-ring">
                 <SelectValue placeholder="Select dietary type" />
               </SelectTrigger>
               <SelectContent>
@@ -418,7 +408,7 @@ const CreateRecipePage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label className="text-foreground font-medium">Recipe Image</Label>
+            <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60">Recipe Image</Label>
             <EnhancedImageUpload
               onImageSelect={(file, preview) => {
                 setTempImageFile(file);
@@ -432,7 +422,7 @@ const CreateRecipePage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="videoUrl" className="text-foreground font-medium">YouTube video link</Label>
+            <Label htmlFor="videoUrl" className="text-[9px] uppercase tracking-widest-editorial opacity-60">YouTube video link</Label>
             <div className="relative">
               <Youtube className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
@@ -440,14 +430,14 @@ const CreateRecipePage = () => {
                 placeholder="https://youtube.com/watch?v=..."
                 value={formData.youtube_url}
                 onChange={(e) => updateFormData('youtube_url', e.target.value)}
-                className="pl-10 bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm"
+                className="pl-10 bg-glass border-glass-border text-foreground font-bold placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="cookTime" className="text-foreground font-medium">Cook Time (minutes) *</Label>
+              <Label htmlFor="cookTime" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Cook Time (minutes) *</Label>
               <Input
                 id="cookTime"
                 placeholder="25"
@@ -455,12 +445,12 @@ const CreateRecipePage = () => {
                 min="1"
                 value={formData.cook_time || ''}
                 onChange={(e) => updateFormData('cook_time', parseInt(e.target.value) || 0)}
-                className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm"
+                className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="servings" className="text-foreground font-medium">Servings *</Label>
+              <Label htmlFor="servings" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Servings *</Label>
               <Input
                 id="servings"
                 placeholder="4"
@@ -468,7 +458,7 @@ const CreateRecipePage = () => {
                 min="1"
                 value={formData.servings}
                 onChange={(e) => updateFormData('servings', parseInt(e.target.value) || 1)}
-                className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm"
+                className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
                 required
               />
             </div>
@@ -476,9 +466,9 @@ const CreateRecipePage = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="difficulty" className="text-foreground font-medium">Difficulty</Label>
+              <Label htmlFor="difficulty" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Difficulty</Label>
               <Select value={formData.difficulty} onValueChange={(value) => updateFormData('difficulty', value as DifficultyLevel)}>
-                <SelectTrigger className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm">
+                <SelectTrigger className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm shadow-sm">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -489,9 +479,9 @@ const CreateRecipePage = () => {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="cuisine" className="text-foreground font-medium">Cuisine</Label>
+              <Label htmlFor="cuisine" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Cuisine</Label>
               <Select value={formData.cuisine} onValueChange={(value) => updateFormData('cuisine', value as CuisineType)}>
-                <SelectTrigger className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm">
+                <SelectTrigger className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm shadow-sm">
                   <SelectValue placeholder="Select cuisine type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -504,7 +494,7 @@ const CreateRecipePage = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="calories" className="text-foreground font-medium">Calories</Label>
+            <Label htmlFor="calories" className="text-[9px] uppercase tracking-widest-editorial opacity-60">Calories</Label>
             <Input
               id="calories"
               placeholder="Enter calories (e.g., 300)"
@@ -512,12 +502,12 @@ const CreateRecipePage = () => {
               min="0"
               value={formData.calories}
               onChange={(e) => updateFormData('calories', e.target.value === '' ? '' : parseInt(e.target.value) || '')}
-              className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm"
+              className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm shadow-sm"
             />
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Ingredients *</h3>
+            <h3 className="text-[9px] font-black uppercase tracking-widest-editorial text-primary">Ingredients *</h3>
             <IngredientInput
               ingredients={ingredients}
               onChange={setIngredients}
@@ -526,7 +516,7 @@ const CreateRecipePage = () => {
 
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-foreground">Instructions *</h3>
+              <h3 className="text-[9px] font-black uppercase tracking-widest-editorial text-primary">Instructions *</h3>
               <Button 
                 type="button" 
                 variant="outline" 
@@ -545,13 +535,13 @@ const CreateRecipePage = () => {
                     <div className="bg-primary text-primary-foreground rounded-full w-8 h-8 flex items-center justify-center text-sm font-semibold mt-1">
                       {instruction.step}
                     </div>
-                    <Textarea
-                      placeholder={`Describe step ${instruction.step}...`}
-                      value={instruction.description}
-                      onChange={(e) => updateInstruction(index, e.target.value)}
-                      className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm flex-1"
-                      rows={3}
-                    />
+                  <Textarea
+                    placeholder={`Describe step ${instruction.step}...`}
+                    value={instruction.description}
+                    onChange={(e) => updateInstruction(index, e.target.value)}
+                    className="bg-glass border-glass-border text-foreground font-black placeholder:text-foreground/40 backdrop-blur-sm flex-1 shadow-sm italic text-sm"
+                    rows={3}
+                  />
                   </div>
                   {instructions.length > 1 && (
                     <Button
@@ -571,7 +561,7 @@ const CreateRecipePage = () => {
 
           {/* Tags Section - Profile page style */}
           <div className="space-y-3">
-            <Label className="text-foreground font-medium flex items-center gap-2">
+            <Label className="text-[9px] uppercase tracking-widest-editorial opacity-60 flex items-center gap-2">
               Tags
             </Label>
             
@@ -631,7 +621,7 @@ const CreateRecipePage = () => {
                     handleCustomTagAdd();
                   }
                 }}
-                className="bg-black/30 border-white/15 text-white placeholder:text-white/40 backdrop-blur-sm flex-1"
+                className="bg-glass border-glass-border text-foreground placeholder:text-foreground/40 backdrop-blur-sm flex-1 shadow-sm"
               />
               <Button
                 type="button"
@@ -648,7 +638,7 @@ const CreateRecipePage = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 text-[9px] font-black uppercase tracking-widest-editorial shadow-2xl"
           >
             {isSubmitting ? (
               <>

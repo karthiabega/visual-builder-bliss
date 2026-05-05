@@ -115,15 +115,15 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
       {/* Current Ingredients List */}
       {ingredients.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium">Ingredients ({ingredients.length})</h4>
-          <div className="space-y-2 max-h-40 overflow-y-auto">
+          <h4 className="text-[9px] font-black uppercase tracking-widest-editorial text-primary">Ingredients ({ingredients.length})</h4>
+          <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
             {ingredients.map((ingredient, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between bg-accent/20 p-2 rounded-lg text-sm"
+                className="flex items-center justify-between bg-foreground/5 p-3 rounded-xl text-sm border border-foreground/5 group/ing"
               >
-                <span>
-                  <span className="font-medium">{ingredient.quantity} {ingredient.unit}</span> {ingredient.name}
+                <span className="text-foreground font-black italic text-xs">
+                  <span className="text-primary not-italic">{ingredient.quantity} {ingredient.unit}</span> {ingredient.name}
                 </span>
                 <Button
                   type="button"
@@ -141,8 +141,8 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
       )}
 
       {/* Add New Ingredient Form */}
-      <div className="space-y-3 p-4 border rounded-lg bg-card">
-        <h4 className="text-sm font-medium">Add Ingredient</h4>
+      <div className="space-y-4 p-5 rounded-[1.75rem] bg-glass border border-glass-border shadow-xl backdrop-blur-md">
+        <h4 className="text-[9px] font-black uppercase tracking-widest-editorial text-foreground/40">Add New Component</h4>
         
         {/* Ingredient Name with Auto-suggestions */}
         <div className="relative">
@@ -157,7 +157,7 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
                 setShowSuggestions(true);
               }
             }}
-            className="w-full"
+            className="w-full bg-foreground/5 border-none text-foreground font-black placeholder:text-foreground/30 text-sm h-12 rounded-xl"
           />
           
           {/* Suggestions Dropdown */}
@@ -185,9 +185,10 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
         {/* Quantity and Unit Row */}
         <div className="grid grid-cols-2 gap-3">
           <Input
-            placeholder="Quantity (e.g., 2, 1/2)"
+            placeholder="Quantity"
             value={currentIngredient.quantity}
             onChange={(e) => setCurrentIngredient(prev => ({ ...prev, quantity: e.target.value }))}
+            className="bg-foreground/5 border-none text-foreground font-black placeholder:text-foreground/30 text-sm h-12 rounded-xl"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && currentIngredient.name && currentIngredient.quantity && currentIngredient.unit) {
                 e.preventDefault();
@@ -200,8 +201,8 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
             value={currentIngredient.unit}
             onValueChange={(value) => setCurrentIngredient(prev => ({ ...prev, unit: value }))}
           >
-            <SelectTrigger>
-              <SelectValue placeholder="Select unit" />
+            <SelectTrigger className="bg-foreground/5 border-none text-foreground font-black text-sm h-12 rounded-xl">
+              <SelectValue placeholder="Unit" />
             </SelectTrigger>
             <SelectContent>
               {COOKING_UNITS.map((unit) => (
@@ -218,11 +219,10 @@ const IngredientInput: React.FC<IngredientInputProps> = ({ ingredients, onChange
           type="button"
           onClick={addIngredient}
           disabled={!currentIngredient.name || !currentIngredient.quantity || !currentIngredient.unit}
-          className="w-full"
-          size="sm"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase tracking-widest-editorial text-[10px] h-12 rounded-xl shadow-lg shadow-primary/20 transition-all border-none"
         >
-          <Plus className="w-4 h-4 mr-2" />
-          Add Ingredient
+          <Plus className="w-4 h-4 mr-2" strokeWidth={3} />
+          Incorporate Ingredient
         </Button>
       </div>
     </div>

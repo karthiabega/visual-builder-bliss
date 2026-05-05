@@ -189,9 +189,9 @@ const YouTubeShortsCarousel = () => {
     <div className="w-full">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-2xl font-semibold text-foreground">Recipe Shorts</h2>
-          <p className="text-sm text-muted-foreground">
-            Swipe up/down to browse • {currentIndex + 1} of {videos.length}
+          <h2 className="text-2xl font-black text-foreground uppercase tracking-tight">Cinematic Vault</h2>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mt-1">
+            Browse High-Fidelity Shorts • {currentIndex + 1} of {videos.length}
           </p>
         </div>
         
@@ -242,13 +242,16 @@ const YouTubeShortsCarousel = () => {
                 />
                 
                 {/* Video Info Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                  <h3 className="font-semibold text-white text-sm line-clamp-2 mb-1">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6">
+                  <h3 className="font-black text-white text-sm uppercase tracking-tight line-clamp-2 mb-2">
                     {video.title}
                   </h3>
-                  <p className="text-white/80 text-xs">
-                    {video.channelTitle}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <div className="h-[1px] w-4 bg-primary" />
+                    <p className="text-primary text-[10px] font-black uppercase tracking-widest italic">
+                      {video.channelTitle}
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
